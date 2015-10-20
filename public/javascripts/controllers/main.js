@@ -2,23 +2,58 @@ angular.module('divvitController',['googlechart'])
 
     // inject the report service factory into our controller
     .controller('reportController', ['$scope','$http','Divvit', function($scope, $http, Divvit) {
-        $scope.reportYear = [{id: '2015', name: '2015'}];
+        var data = new Date();
+        var defaultReport = {
+            rYear: data.getFullYear(),
+            fMonth: 1,
+            tMonth: data.getMonth()
+        }
+        $scope.reportBy = defaultReport;
         $scope.loading = true;
         this.$inject = ['$scope'];
         $scope.chartObject = {};
         
+
         //Methods
         $scope.hideSeries = hideSeries;
 
-        // GET =====================================================================
-        // when landing on the page, get report by default and show them
+        $scope.LoadReport = getReportData;
+
+        function getReportData(){
+            var year = $scope.reportBy.rYear
+            var fMonth = $scope.reportBy.fMonth;
+            var tMonth = $scope.reportBy.tMonth;
+            if(fMonth >= tMonth){
+                alert('Please select validate from date to date! \r\n To date should be greate than from date');
+            }
+            else{
+                // when landing on the page, get report by default and show them
+                // use the service to get the report
+                Divvit.get(year,fMonth,tMonth)
+                    .success(function(data) {
+                        $scope.chartObject.data = data;
+                        $scope.loading = false;
+                    })
+            }
+        }
+
+        // when landing on the page, get report all year have orders yet
         // use the service to get the report
-        Divvit.get()
+        Divvit.getYear()
             .success(function(data) {
-                $scope.chartObject.data = data;
-                $scope.loading = false;
-                
+                $scope.reportBy.rYears = data;
             });
+
+        // when landing on the page, get report all month have orders yet by year
+        // use the service to get the report
+        Divvit.getAllMonthYear($scope.reportBy.rYear)
+            .success(function(data) {
+                $scope.reportBy.fMonths = data;
+                $scope.reportBy.tMonths = data;
+            });
+        
+        
+        getReportData();
         init();
         function init() {
             $scope.chartObject.type = "LineChart";

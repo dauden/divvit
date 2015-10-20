@@ -5,6 +5,9 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Order = require('../models/Order.js');
 
+//defined Month string
+var monthsName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  
 
 function handleGetReport(req, res){
   //create report structure data 
@@ -29,8 +32,6 @@ function handleGetReport(req, res){
   //excute queries get months by year
   var months  = wait.forMethod(Order, "aggregate", funcMonths);
   
-  //defined Month string
-  var monthsName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   var month;  
   
   for (var i = months.length - 1; i >= 0; i--) {
@@ -121,12 +122,13 @@ router.get('/year', function(req, res, next) {
 /* GET report listing. */
 router.get('/month', function(req, res, next) {
   
-  var qyear = req.query.year? parseInt(req.query.year) : 2015;
+  var qyear = req.query.ryear? parseInt(req.query.ryear) : 2015;
   Order.aggregate({ $match: { 'orderYear': qyear }},{$group: { _id: '$orderMonth'} }, {$sort: {_id: -1}}, function (err, data) {
     if (err) return next(err);
     var months = [];
     for (var i = data.length-1; i >= 0; i--) {
-      months.push(data[i]._id);
+      var month = data[i]._id;
+      months.push({ id: month, text : monthsName[month -1] } );
     };
     res.json(months);
   });
