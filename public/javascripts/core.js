@@ -1,0 +1,1 @@
+angular.module('divvit', ['divvitController', 'divvitService']);

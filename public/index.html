@@ -1,0 +1,56 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="divvit">
+<head>
+	<meta charset="utf-8">
+	<!-- Optimize mobile viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Divvit Cohort Report</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+	</style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.18/angular.min.js"></script><!-- load angular -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-chart/0.0.11/ng-google-chart.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+ 	
+ 	<!-- load up our controller -->
+	<script src="javascripts/controllers/main.js"></script>
+	<!-- load our todo service -->
+	<script src="javascripts/services/report.js"></script>
+	 <!-- load our main application -->
+	<script src="javascripts/core.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="reportController">
+	<div class="container">
+		<div class="h4">
+			Select time:
+		</div>
+		<div>Year: 
+		<select aria-label="ngSelected year" id="reportYear" name="year" ng-model="reportYear">
+			<option ng-repeat="option in reportYear" value="{{option.id}}">{{option.name}}</option>
+		</select>
+		</div>
+		<div class="cols">
+		From: 
+		<select aria-label="ngSelected from" id="fromMonth" ng-model="fromMonth">
+			<option ng-repeat="option in fromMonth" value="{{option.id}}">{{option.name}}</option>
+		</select>
+		<select aria-label="ngSelected to" id="toMonth" ng-model="toMonth">
+				<option ng-repeat="option in toMonth" value="{{option.id}}">{{option.name}}</option>
+		</select>
+		</div>
+		<div google-chart chart="chartObject" on-select="hideSeries(selectedItem)" style="height:550px; width:100%;"></div>
+	</div>
+</body>
+</html>
