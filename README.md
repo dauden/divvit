@@ -3,7 +3,7 @@ To run Application, make sure you have installed NodeJS and Mongobd yet.
 	I) Create database & correcly data
 		1) change database directory 
 		2) run Import data base from CSV file
-		$ mongoimport --db divvit --collection orders --file ./database/data.csv  --type csv  --headerline
+		$ mongoimport --db divvit --collection orders --file ./data.csv  --type csv  --headerline
 		3) end then run data migration 
 		$ mongo divvit migration.js 
 
