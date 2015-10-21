@@ -13,11 +13,6 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<!-- load bootstrap -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-	</style>
-
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.18/angular.min.js"></script><!-- load angular -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-chart/0.0.11/ng-google-chart.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
@@ -33,24 +28,54 @@
 <!-- SET THE CONTROLLER -->
 <body ng-controller="reportController">
 	<div class="container">
-		<div class="h4">
-			Select time:
+		<div class="page-header">
+			<h3>Divvit Cohort Report</h3>
 		</div>
-		<div>Year: 
-		<select ng-model="reportBy.rYear" ng-change="LoadReport()">
-			<option ng-repeat="option in reportBy.rYears" value="{{option}}">{{option}}</option>
-		</select>
+		<div class="form-group">
+			<form class="form-horizontal">
+				<div class="row">
+					<div class="col-sm-2">
+						<label  class="control-label">Select time:</label>
+					</div>
+					<div class="col-sm-10">
+			      		<div class="col-sm-3">
+			      			<label  class="control-label col-sm-3" for="rYear">Year: </label>
+							<div class="col-sm-9">
+								<select class="form-control" id="rYear" ng-model="reportBy.rYear" ng-change="LoadReport()">
+									<option ng-repeat="option in reportBy.rYears" value="{{option}}">{{option}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-3">
+			      			<label  class="control-label col-sm-3" for="fMonth">From: </label>
+							<div class="col-sm-9">
+								<select id="fMonth" class="form-control"  ng-model="reportBy.fMonth" ng-change="LoadReport()">
+									<option ng-repeat="option in reportBy.fMonths" value="{{option.id}}">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-3">
+			      			<label  class="control-label col-sm-3" for="tMonth">To: </label>
+							<div class="col-sm-9">
+								<select id="tMonth" class="form-control"  ng-model="reportBy.tMonth" ng-change="LoadReport()">
+									<option ng-repeat="option in reportBy.tMonths" value="{{option.id}}">{{option.text}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
-		<div class="cols">
-		From: 
-		<select ng-model="reportBy.fMonth" ng-change="LoadReport()">
-			<option ng-repeat="option in reportBy.fMonths" value="{{option.id}}">{{option.text}}</option>
-		</select>
-		<select ng-model="reportBy.tMonth" ng-change="LoadReport()">
-			<option ng-repeat="option in reportBy.tMonths" value="{{option.id}}">{{option.text}}</option>
-		</select>
-		</div>
-		<div google-chart chart="chartObject" on-select="hideSeries(selectedItem)" style="height:550px; width:100%;"></div>
+		<div class="row">
+			<div class="panel panel-default">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">Cohort View</h3>
+	            </div>
+	            <div class="panel-body">
+	              <div google-chart chart="chartObject" on-select="hideSeries(selectedItem)" style="height:480px; width:100%;"></div>
+	            </div>
+	        </div>
+        </div>
 	</div>
 </body>
 </html>

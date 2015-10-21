@@ -24,7 +24,8 @@ angular.module('divvitController',['googlechart'])
             var fMonth = $scope.reportBy.fMonth;
             var tMonth = $scope.reportBy.tMonth;
             if(fMonth >= tMonth){
-                alert('Please select validate from date to date! \r\n To date should be greate than from date');
+               alert('Please select validate from date to date! \r\n To date should be greate than from date');
+               return;
             }
             else{
                 // when landing on the page, get report by default and show them
