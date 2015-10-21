@@ -90,8 +90,6 @@ function handleGetReport(req, res){
       }
       pre_index = index;
     };
-    console.log(getGrouporder[getGrouporder.length - 1]._id);
-    console.log(qToMonth);
     
     //correctly last missing data of month have not order, when last month in report have no orders
     if(getGrouporder[getGrouporder.length -1]._id < qToMonth){
