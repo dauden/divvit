@@ -22,9 +22,9 @@ angular.module('divvitController',['googlechart'])
         function getReportData(){
 
             var year = $scope.reportBy.rYear
-            var fMonth = $scope.reportBy.fMonth;
-            var tMonth = $scope.reportBy.tMonth;
-            if(fMonth > tMonth){
+            var fMonth = parseInt( $scope.reportBy.fMonth);
+            var tMonth =  parseInt( $scope.reportBy.tMonth);
+            if(fMonth >= tMonth){
                alert('Please select validate from date to date! \r\n To date should be greate than from date');
                return;
             }
